@@ -1,0 +1,1832 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#7c3aed">
+    <meta name="format-detection" content="telephone=no">
+    <title>Glory Fragrance - INUKA Products</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom Properties */
+        :root {
+            --primary: #7c3aed;
+            --primary-dark: #6d28d9;
+            --secondary: #f59e0b;
+            --dark: #111827;
+            --light: #f9fafb;
+            --gray: #9ca3af;
+            --danger: #ef4444;
+            --success: #10b981;
+            --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s ease;
+            --radius: 12px;
+            --safe-top: env(safe-area-inset-top, 0px);
+            --safe-bottom: env(safe-area-inset-bottom, 0px);
+        }
+
+        /* Dark Mode Variables */
+        .dark {
+            --dark: #f9fafb;
+            --light: #111827;
+            --gray: #6b7280;
+        }
+
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100vw;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: var(--dark);
+            min-height: 100vh;
+            min-height: -webkit-fill-available;
+            padding-top: var(--safe-top);
+            padding-bottom: var(--safe-bottom);
+        }
+
+        .dark body {
+            background-color: #1a1a2e;
+        }
+
+        .app-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            max-width: 480px;
+            margin: 0 auto;
+            background-color: #f5f5f5;
+            position: relative;
+        }
+
+        .dark .app-container {
+            background-color: #1a1a2e;
+        }
+
+        /* Header Styles */
+        .header {
+            background-color: white;
+            padding: 12px 16px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .dark .header {
+            background-color: #16213e;
+        }
+
+        .header-content {
+            max-width: 480px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .menu-button {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark);
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .dark .menu-button {
+            color: #fff;
+        }
+
+        .menu-button:active {
+            background-color: rgba(124, 58, 237, 0.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .logo-image {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1rem;
+            overflow: hidden;
+        }
+
+        .logo-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cart-button {
+            position: relative;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            transition: var(--transition);
+        }
+
+        .cart-button:active {
+            transform: scale(0.95);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background-color: var(--danger);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        /* Sidebar Menu Styles */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 200;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -280px;
+            width: 280px;
+            height: 100%;
+            background-color: white;
+            z-index: 300;
+            transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .dark .sidebar {
+            background-color: #16213e;
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .sidebar-header {
+            padding: 24px 20px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .sidebar-logo-icon {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            overflow: hidden;
+        }
+
+        .sidebar-logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .sidebar-logo-text {
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .sidebar-tagline {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            margin-left: 62px;
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            padding: 16px 0;
+            overflow-y: auto;
+        }
+
+        .sidebar-nav-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 24px;
+            color: var(--dark);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+        }
+
+        .dark .sidebar-nav-item {
+            color: #e0e0e0;
+        }
+
+        .sidebar-nav-item:active,
+        .sidebar-nav-item.active {
+            background-color: rgba(124, 58, 237, 0.1);
+            color: var(--primary);
+        }
+
+        .sidebar-nav-item i {
+            width: 24px;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        .sidebar-divider {
+            height: 1px;
+            background-color: #eee;
+            margin: 8px 24px;
+        }
+
+        .dark .sidebar-divider {
+            background-color: #2d3748;
+        }
+
+        .sidebar-footer {
+            padding: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .dark .sidebar-footer {
+            border-top-color: #2d3748;
+        }
+
+        .sidebar-social {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .sidebar-social a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .sidebar-social a:active {
+            transform: scale(0.9);
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            padding: 76px 16px 20px;
+            width: 100%;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        /* Page Styles */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Home Page Styles */
+        .hero {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            height: 200px;
+            background: linear-gradient(135deg, #7c3aed, #4c1d95);
+            color: white;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .hero h1 {
+            font-size: 1.6rem;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+
+        .hero p {
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+            opacity: 0.9;
+        }
+
+        .hero-button {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1rem;
+        }
+
+        .hero-button:active {
+            transform: scale(0.95);
+        }
+
+        .category-title {
+            font-size: 1.2rem;
+            margin: 24px 0 16px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--primary);
+            color: var(--dark);
+        }
+
+        .dark .category-title {
+            color: #fff;
+        }
+
+        /* Products Styles */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .product-card {
+            background-color: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+        }
+
+        .dark .product-card {
+            background-color: #16213e;
+        }
+
+        .product-card:active {
+            transform: scale(0.98);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 120px;
+            background: linear-gradient(135deg, #f3e8ff, #ede9fe);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            overflow: hidden;
+        }
+
+        .dark .product-image {
+            background: linear-gradient(135deg, #2d2d44, #1a1a2e);
+        }
+
+        .product-image i {
+            font-size: 2.5rem;
+            opacity: 0.7;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-details {
+            padding: 12px;
+        }
+
+        .product-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: var(--dark);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .dark .product-name {
+            color: #fff;
+        }
+
+        .product-description {
+            font-size: 0.75rem;
+            color: var(--gray);
+            margin-bottom: 8px;
+            line-height: 1.4;
+            height: 32px;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .product-price {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .add-to-cart {
+            width: 100%;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: var(--transition);
+        }
+
+        .add-to-cart:active {
+            background-color: var(--primary-dark);
+            transform: scale(0.98);
+        }
+
+        /* Cart Styles */
+        .cart-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: flex-end;
+            z-index: 1000;
+        }
+
+        .cart-overlay.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .cart-container {
+            background-color: white;
+            width: 100%;
+            max-width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            animation: slideInRight 0.3s ease;
+        }
+
+        .dark .cart-container {
+            background-color: #1a1a2e;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        .cart-header {
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            position: sticky;
+            top: 0;
+            background-color: white;
+            z-index: 10;
+        }
+
+        .dark .cart-header {
+            background-color: #16213e;
+            border-bottom-color: #2d3748;
+        }
+
+        .cart-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .dark .cart-title {
+            color: #fff;
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark);
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .dark .close-cart {
+            color: #fff;
+        }
+
+        .close-cart:active {
+            background-color: rgba(0,0,0,0.05);
+        }
+
+        .cart-items {
+            flex: 1;
+            padding: 16px;
+        }
+
+        .empty-cart {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 300px;
+            color: var(--gray);
+            text-align: center;
+        }
+
+        .empty-cart i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0.3;
+        }
+
+        .cart-item {
+            display: flex;
+            padding: 14px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .dark .cart-item {
+            border-bottom-color: #2d3748;
+        }
+
+        .cart-item-image {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #f3e8ff, #ede9fe);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            margin-right: 14px;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .dark .cart-item-image {
+            background: linear-gradient(135deg, #2d2d44, #1a1a2e);
+        }
+
+        .cart-item-image i {
+            font-size: 1.6rem;
+        }
+
+        .cart-item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cart-item-details {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .cart-item-name {
+            font-weight: 600;
+            margin-bottom: 4px;
+            font-size: 0.95rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .dark .cart-item-name {
+            color: #fff;
+        }
+
+        .cart-item-price {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+        }
+
+        .quantity-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            color: var(--dark);
+        }
+
+        .dark .quantity-btn {
+            background-color: #2d3748;
+            border-color: #4a5568;
+            color: #fff;
+        }
+
+        .quantity-btn:active {
+            background-color: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .item-quantity {
+            margin: 0 12px;
+            font-weight: 600;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .dark .item-quantity {
+            color: #fff;
+        }
+
+        .remove-item {
+            background: none;
+            border: none;
+            color: var(--danger);
+            cursor: pointer;
+            margin-left: auto;
+            font-size: 1.2rem;
+            align-self: center;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cart-footer {
+            padding: 16px;
+            border-top: 1px solid #eee;
+            background-color: white;
+            position: sticky;
+            bottom: 0;
+        }
+
+        .dark .cart-footer {
+            background-color: #16213e;
+            border-top-color: #2d3748;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            font-size: 1.1rem;
+        }
+
+        .dark .cart-total {
+            color: #fff;
+        }
+
+        .total-price {
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .checkout-btn {
+            width: 100%;
+            background-color: var(--success);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 14px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+
+        .checkout-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* About Page Styles */
+        .about-section {
+            background-color: white;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 20px;
+        }
+
+        .dark .about-section {
+            background-color: #16213e;
+        }
+
+        .about-section h2 {
+            color: var(--primary);
+            margin-bottom: 16px;
+            font-size: 1.3rem;
+        }
+
+        .about-section p {
+            line-height: 1.6;
+            margin-bottom: 14px;
+            color: var(--dark);
+            font-size: 0.95rem;
+        }
+
+        .dark .about-section p {
+            color: #e0e0e0;
+        }
+
+        .features {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .feature-card {
+            background-color: white;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .dark .feature-card {
+            background-color: #16213e;
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .feature-content {
+            flex: 1;
+        }
+
+        .feature-title {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 6px;
+        }
+
+        .dark .feature-title {
+            color: #fff;
+        }
+
+        .feature-description {
+            color: var(--gray);
+            line-height: 1.5;
+            font-size: 0.9rem;
+        }
+
+        /* Contact Page Styles */
+        .contact-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-info {
+            background-color: white;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .dark .contact-info {
+            background-color: #16213e;
+        }
+
+        .contact-info h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .contact-detail {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .contact-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 14px;
+            flex-shrink: 0;
+        }
+
+        .contact-text h3 {
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+
+        .dark .contact-text h3 {
+            color: #fff;
+        }
+
+        .contact-text p {
+            color: var(--gray);
+            line-height: 1.5;
+            font-size: 0.9rem;
+        }
+
+        .contact-form {
+            background-color: white;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .dark .contact-form {
+            background-color: #16213e;
+        }
+
+        .contact-form h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .dark .form-label {
+            color: #e0e0e0;
+        }
+
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            font-size: 16px;
+            transition: var(--transition);
+            background-color: white;
+            color: var(--dark);
+        }
+
+        .dark .form-input, .dark .form-textarea {
+            background-color: #2d3748;
+            border-color: #4a5568;
+            color: #fff;
+        }
+
+        .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-button {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            padding: 16px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .form-button:active {
+            transform: scale(0.98);
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background-color: #333;
+            color: white;
+            padding: 14px 24px;
+            border-radius: 30px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 2000;
+            opacity: 0;
+            transition: all 0.3s ease;
+            max-width: calc(100% - 40px);
+            text-align: center;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        .toast i {
+            color: var(--success);
+        }
+
+        /* Loading Animation */
+        .loader-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 3000;
+            visibility: hidden;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .dark .loader-overlay {
+            background-color: rgba(26, 26, 46, 0.9);
+        }
+
+        .loader-overlay.active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(124, 58, 237, 0.2);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: loader 0.8s linear infinite;
+        }
+
+        @keyframes loader {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Utility: Hide scrollbar but keep functionality */
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <button class="menu-button" id="menuBtn" aria-label="Menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="logo">
+                    <div class="logo-image" id="headerLogo">
+                        <i class="fas fa-spray-can-sparkles"></i>
+                    </div>
+                    <span>Glory Fragrance</span>
+                </div>
+                <button class="cart-button" id="cartBtn" aria-label="Carrinho">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Sidebar Overlay -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <!-- Sidebar Menu -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <div class="sidebar-logo-icon" id="sidebarLogo">
+                        <i class="fas fa-spray-can-sparkles"></i>
+                    </div>
+                    <div class="sidebar-logo-text">Glory Fragrance</div>
+                </div>
+                <div class="sidebar-tagline">Produtos INUKA Premium</div>
+            </div>
+            <div class="sidebar-nav">
+                <button class="sidebar-nav-item active" data-page="home">
+                    <i class="fas fa-home"></i>
+                    <span>Início</span>
+                </button>
+                <button class="sidebar-nav-item" data-page="products">
+                    <i class="fas fa-box-open"></i>
+                    <span>Produtos</span>
+                </button>
+                <button class="sidebar-nav-item" data-page="about">
+                    <i class="fas fa-info-circle"></i>
+                    <span>Sobre Nós</span>
+                </button>
+                <button class="sidebar-nav-item" data-page="contact">
+                    <i class="fas fa-envelope"></i>
+                    <span>Contacto</span>
+                </button>
+                <div class="sidebar-divider"></div>
+                <button class="sidebar-nav-item" id="sidebarCartBtn">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Meu Carrinho</span>
+                </button>
+            </div>
+            <div class="sidebar-footer">
+                <div class="sidebar-social">
+                    <a href="https://wa.me/258872007783" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#" target="_blank" rel="noopener"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content hide-scrollbar">
+            <!-- Home Page -->
+            <div class="page active" id="home">
+                <section class="hero">
+                    <div class="hero-content">
+                        <h1>Bem-vindo à Glory Fragrance</h1>
+                        <p>Descubra a colecção exclusiva de produtos INUKA premium.</p>
+                        <button class="hero-button" id="shopNowBtn">Ver Produtos</button>
+                    </div>
+                </section>
+
+                <h2 class="category-title">Produtos em Destaque</h2>
+                <div class="products-grid" id="featuredProducts"></div>
+
+                <h2 class="category-title">Novidades</h2>
+                <div class="products-grid" id="newArrivalsProducts"></div>
+            </div>
+
+            <!-- Products Page -->
+            <div class="page" id="products">
+                <h2 class="category-title">Todos os Produtos</h2>
+                <div class="products-grid" id="allProducts"></div>
+            </div>
+
+            <!-- About Page -->
+            <div class="page" id="about">
+                <div class="about-section">
+                    <h2>Sobre a Glory Fragrance</h2>
+                    <p>A Glory Fragrance é a distribuidora exclusiva de produtos INUKA premium em Moçambique. Oferecemos uma ampla gama de produtos de alta qualidade para saúde, beleza e bem-estar.</p>
+                    <p>A nossa missão é fornecer produtos excepcionais que atendam aos mais altos padrões de qualidade e eficácia.</p>
+                </div>
+
+                <h2 class="category-title">Por que nos escolher?</h2>
+                <div class="features">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-medal"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3 class="feature-title">Qualidade Premium</h3>
+                            <p class="feature-description">Todos os nossos produtos INUKA são autênticos e de alta qualidade.</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3 class="feature-title">Entrega Rápida</h3>
+                            <p class="feature-description">Serviços de entrega eficientes para todo Moçambique.</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3 class="feature-title">Suporte ao Cliente</h3>
+                            <p class="feature-description">Equipa dedicada para ajudá-lo sempre que precisar.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Page -->
+            <div class="page" id="contact">
+                <div class="contact-container">
+                    <div class="contact-info">
+                        <h2>Informações de Contacto</h2>
+
+                        <div class="contact-detail">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h3>Telefone</h3>
+                                <p>+258 872007783</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-detail">
+                            <div class="contact-icon">
+                                <i class="fab fa-whatsapp"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h3>WhatsApp</h3>
+                                <p>+258 872007783</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-detail">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h3>Localização</h3>
+                                <p>Maputo, Moçambique</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-detail">
+                            <div class="contact-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h3>Horário</h3>
+                                <p>Seg - Sex: 8:00 - 18:00<br>Sáb: 9:00 - 16:00</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-form">
+                        <h2>Envie-nos uma Mensagem</h2>
+                        <form id="contactForm">
+                            <div class="form-group">
+                                <label class="form-label" for="name">Seu Nome</label>
+                                <input type="text" class="form-input" id="name" placeholder="Digite seu nome">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="email">Email</label>
+                                <input type="email" class="form-input" id="email" placeholder="Digite seu email">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="message">Mensagem</label>
+                                <textarea class="form-textarea" id="message" placeholder="Digite sua mensagem"></textarea>
+                            </div>
+
+                            <button type="submit" class="form-button">
+                                <i class="fas fa-paper-plane"></i> Enviar Mensagem
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Shopping Cart Overlay -->
+        <div class="cart-overlay" id="cartOverlay">
+            <div class="cart-container">
+                <div class="cart-header">
+                    <h2 class="cart-title">Seu Carrinho</h2>
+                    <button class="close-cart" id="closeCart">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+
+                <div class="cart-items" id="cartItems">
+                    <div class="empty-cart" id="emptyCart">
+                        <i class="fas fa-shopping-cart"></i>
+                        <p>Seu carrinho está vazio</p>
+                    </div>
+                </div>
+
+                <div class="cart-footer">
+                    <div class="cart-total">
+                        <span>Total:</span>
+                        <span class="total-price" id="totalPrice">MZN 0.00</span>
+                    </div>
+                    <button class="checkout-btn" id="checkoutBtn">
+                        <i class="fab fa-whatsapp"></i> Finalizar via WhatsApp
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toast Notification -->
+        <div class="toast" id="toast">
+            <i class="fas fa-check-circle"></i>
+            <span id="toastMessage"></span>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div class="loader-overlay" id="loader">
+            <div class="loader"></div>
+        </div>
+    </div>
+
+    <script>
+        // Dark mode detection
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+        }
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+            if (event.matches) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        });
+
+        // ==========================================
+        // CONFIGURAÇÃO DE IMAGENS - EDITE AQUI
+        // ==========================================
+
+        // Logotipo da loja (deixe null para usar o ícone padrão)
+        // Suporta JPG, PNG e outros formatos de imagem
+        const storeLogoUrl = null; // Exemplo: "https://exemplo.com/logo.png"
+
+        // Produtos com imagens
+        // Adicione a propriedade 'image' com a URL da imagem (JPG ou PNG)
+        // Se 'image' for null ou não definida, será usado o ícone padrão
+        const products = [
+            { id: 1, name: "Paradise For Her", description: "Perfume (30ml) + Luxury Lotion – Paradise For Her", price: 2500, featured: true, newArrival: false, image: "https://raw.githubusercontent.com/Diua-maker/glory/main/IMG-20251228-WA0001.jpg" },
+            { id: 2, name: "INUKA King", description: "Perfume + Luxury Lotion – King", price: 2500, featured: true, newArrival: false, image: "https://raw.githubusercontent.com/Diua-maker/glory/main/IMG-20251228-WA0002.jpg" },
+            { id: 3, name: "Body Splash", description: "INUKA Body Splash – Fragrância refrescante", price: 1200, featured: false, newArrival: true, image: "https://raw.githubusercontent.com/Diua-maker/glory/main/IMG-20251228-WA0003.jpg" },
+            { id: 4, name: "Kit Variado INUKA", description: "Perfumes INUKA diversos, Roll-on perfumes e Creme corporal", price: 3500, featured: true, newArrival: false, image: "https://raw.githubusercontent.com/Diua-maker/glory/main/IMG-20251228-WA0004.jpg" },
+            { id: 5, name: "1 Million", description: "Perfume + Luxury Lotion – 1 Million", price: 2500, featured: true, newArrival: false, image: "https://raw.githubusercontent.com/Diua-maker/glory/main/IMG-20251228-WA0005.jpg" },
+            { id: 6, name: "Luxury Lotion Variedades", description: "Luxury Lotion – King, 1 Million e outros aromas INUKA", price: 1500, featured: false, newArrival: true, image: "https://raw.githubusercontent.com/Diua-maker/glory/main/IMG-20251228-WA0006.jpg" },
+            { id: 7, name: "Amari Range", description: "Luxury Bath Salts, Hand & Body Lotion e Hand & Body Wash – Amari", price: 2800, featured: true, newArrival: false, image: "https://raw.githubusercontent.com/Diua-maker/glory/main/IMG-20251228-WA0007.jpg" },
+            { id: 8, name: "Skin Care Set", description: "Age Defying Squalane Serum (50ml), Hydrating Facial Essence, Rose Quartz Roller + INUKA Pink Travel Bag", price: 4500, featured: true, newArrival: true, image: "https://raw.githubusercontent.com/Diua-maker/glory/main/IMG-20251228-WA0008.jpg" },
+            { id: 9, name: "Luxury Lotion Linha Vermelha", description: "INUKA Luxury Lotion – Aromas variados linha vermelha", price: 1500, featured: false, newArrival: false, image: "https://raw.githubusercontent.com/Diua-maker/glory/main/IMG-20251228-WA0009.jpg" },
+            { id: 10, name: "Paradise For Her Set", description: "Luxury Lotion + Perfume (caixa) – Paradise For Her", price: 2500, featured: false, newArrival: true, image: "https://raw.githubusercontent.com/Diua-maker/glory/main/IMG-20251228-WA0010.jpg" },
+            { id: 11, name: "1 Million Set", description: "Perfume + Luxury Lotion – 1 Million", price: 2500, featured: false, newArrival: false, image: "https://raw.githubusercontent.com/Diua-maker/glory/main/IMG-20251228-WA0011.jpg" },
+            { id: 12, name: "Kit Masculino Premium", description: "Perfume + Luxury Lotion – Handcrafted, Vision For Him, King", price: 3000, featured: true, newArrival: false, image: "https://raw.githubusercontent.com/Diua-maker/glory/main/IMG-20251228-WA0012.jpg" },
+            { id: 13, name: "Faith", description: "Perfume + Luxury Lotion – Faith", price: 2500, featured: false, newArrival: true, image: "https://raw.githubusercontent.com/Diua-maker/glory/main/IMG-20251228-WA0013.jpg" },
+            { id: 14, name: "Paradise For Her Lotion", description: "Luxury Lotion – Paradise For Her", price: 1500, featured: false, newArrival: false, image: "https://raw.githubusercontent.com/Diua-maker/glory/main/IMG-20251228-WA0014.jpg" },
+            { id: 15, name: "Dare To Be Rare Lotion", description: "Luxury Lotion – Dare To Be Rare", price: 1500, featured: false, newArrival: true, image: "https://raw.githubusercontent.com/Diua-maker/glory/main/IMG-20251228-WA0015.jpg" },
+            { id: 16, name: "Moholo Hair Range", description: "Revitalizing Shampoo, Nourishing Conditioner, Deep Treatment e Hair Mask", price: 3200, featured: true, newArrival: true, image: "https://raw.githubusercontent.com/Diua-maker/glory/main/IMG-20251228-WA0016.jpg" },
+            { id: 17, name: "Roll-On Perfumes", description: "Innocent, 1 Million, Sweet Melody e Invictus", price: 1800, featured: false, newArrival: false, image: "https://raw.githubusercontent.com/Diua-maker/glory/main/IMG-20251228-WA0017.jpg" },
+            { id: 18, name: "Luxury Lotion Linha Castanha", description: "INUKA Luxury Lotion – Aromas variados linha castanha", price: 1500, featured: false, newArrival: false, image: "https://raw.githubusercontent.com/Diua-maker/glory/main/IMG-20251228-WA0018.jpg" },
+            { id: 19, name: "Vision For Him", description: "Perfume + Luxury Lotion – Vision For Him", price: 2500, featured: true, newArrival: false, image: "https://raw.githubusercontent.com/Diua-maker/glory/main/IMG-20251228-WA0019.jpg" },
+            { id: 20, name: "Made For Her", description: "Perfume (30ml) – Made For Her", price: 1800, featured: false, newArrival: true, image: "https://raw.githubusercontent.com/Diua-maker/glory/main/IMG-20251228-WA0020.jpg" },
+            { id: 21, name: "Daily Facial Cleanser", description: "INUKA Daily Facial Foaming Cleanser – Skin Care", price: 1200, featured: false, newArrival: true, image: "https://raw.githubusercontent.com/Diua-maker/glory/main/IMG-20251228-WA0021.jpg" },
+            { id: 22, name: "Perfumes Femininos 30ml", description: "Vision For Her, Paradise For Her e La Vie Est Belle", price: 2200, featured: true, newArrival: false, image: "https://raw.githubusercontent.com/Diua-maker/glory/main/IMG-20251228-WA0022.jpg" },
+            { id: 23, name: "Dare To Be Rare Set", description: "Perfume + Luxury Lotion + Roll-on – Dare To Be Rare", price: 2800, featured: true, newArrival: true, image: "https://raw.githubusercontent.com/Diua-maker/glory/main/IMG-20251228-WA0023.jpg" }
+        ];
+
+        // ==========================================
+        // FIM DA CONFIGURAÇÃO DE IMAGENS
+        // ==========================================
+
+        // App State
+        let cart = [];
+        let currentPage = 'home';
+
+        // DOM Elements
+        const menuBtn = document.getElementById('menuBtn');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        const sidebarNavItems = document.querySelectorAll('.sidebar-nav-item[data-page]');
+        const pages = document.querySelectorAll('.page');
+        const cartBtn = document.getElementById('cartBtn');
+        const sidebarCartBtn = document.getElementById('sidebarCartBtn');
+        const cartOverlay = document.getElementById('cartOverlay');
+        const closeCart = document.getElementById('closeCart');
+        const cartItems = document.getElementById('cartItems');
+        const emptyCart = document.getElementById('emptyCart');
+        const totalPrice = document.getElementById('totalPrice');
+        const cartCount = document.getElementById('cartCount');
+        const checkoutBtn = document.getElementById('checkoutBtn');
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toastMessage');
+        const loader = document.getElementById('loader');
+        const shopNowBtn = document.getElementById('shopNowBtn');
+        const contactForm = document.getElementById('contactForm');
+
+        // Initialize the App
+        function initApp() {
+            renderStoreLogo();
+            renderProducts();
+            setupEventListeners();
+        }
+
+        // Render Store Logo
+        function renderStoreLogo() {
+            const headerLogo = document.getElementById('headerLogo');
+            const sidebarLogo = document.getElementById('sidebarLogo');
+
+            if (storeLogoUrl) {
+                headerLogo.innerHTML = `<img src="${storeLogoUrl}" alt="Glory Fragrance Logo">`;
+                sidebarLogo.innerHTML = `<img src="${storeLogoUrl}" alt="Glory Fragrance Logo">`;
+            }
+        }
+
+        // Toggle Sidebar
+        function toggleSidebar() {
+            sidebar.classList.toggle('active');
+            sidebarOverlay.classList.toggle('active');
+            if (sidebar.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Close Sidebar
+        function closeSidebar() {
+            sidebar.classList.remove('active');
+            sidebarOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Render Products
+        function renderProducts() {
+            const featuredProducts = products.filter(product => product.featured);
+            renderProductsList(featuredProducts, document.getElementById('featuredProducts'));
+
+            const newArrivals = products.filter(product => product.newArrival);
+            renderProductsList(newArrivals, document.getElementById('newArrivalsProducts'));
+
+            renderProductsList(products, document.getElementById('allProducts'));
+        }
+
+        // Render Products List
+        function renderProductsList(productsList, container) {
+            container.innerHTML = '';
+            productsList.forEach(product => {
+                const productElement = createProductElement(product);
+                container.appendChild(productElement);
+            });
+        }
+
+        // Create Product Element
+        function createProductElement(product) {
+            const productDiv = document.createElement('div');
+            productDiv.className = 'product-card';
+
+            // Determina o conteúdo da imagem
+            const imageContent = product.image
+                ? `<img src="${product.image}" alt="${product.name}">`
+                : `<i class="fas fa-spray-can-sparkles"></i>`;
+
+            productDiv.innerHTML = `
+                <div class="product-image">
+                    ${imageContent}
+                </div>
+                <div class="product-details">
+                    <h3 class="product-name">${product.name}</h3>
+                    <p class="product-description">${product.description}</p>
+                    <div class="product-price">MZN ${product.price.toFixed(2)}</div>
+                    <button class="add-to-cart" data-id="${product.id}">
+                        <i class="fas fa-cart-plus"></i> Adicionar
+                    </button>
+                </div>
+            `;
+
+            return productDiv;
+        }
+
+        // Setup Event Listeners
+        function setupEventListeners() {
+            // Menu toggle
+            menuBtn.addEventListener('click', toggleSidebar);
+            sidebarOverlay.addEventListener('click', closeSidebar);
+
+            // Sidebar navigation
+            sidebarNavItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const page = item.dataset.page;
+                    navigateToPage(page);
+                    closeSidebar();
+                });
+            });
+
+            // Shop Now Button
+            shopNowBtn.addEventListener('click', () => {
+                navigateToPage('products');
+            });
+
+            // Cart Toggle
+            cartBtn.addEventListener('click', toggleCart);
+            sidebarCartBtn.addEventListener('click', () => {
+                closeSidebar();
+                setTimeout(toggleCart, 300);
+            });
+            closeCart.addEventListener('click', toggleCart);
+
+            // Add to Cart Buttons
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('add-to-cart') || e.target.closest('.add-to-cart')) {
+                    const button = e.target.classList.contains('add-to-cart') ? e.target : e.target.closest('.add-to-cart');
+                    const id = parseInt(button.dataset.id);
+                    addToCart(id);
+                }
+            });
+
+            // Checkout Button
+            checkoutBtn.addEventListener('click', checkoutViaWhatsApp);
+
+            // Contact Form
+            contactForm.addEventListener('submit', handleContactFormSubmit);
+
+            // Cart Quantity Buttons
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('quantity-btn') || e.target.closest('.quantity-btn')) {
+                    const button = e.target.classList.contains('quantity-btn') ? e.target : e.target.closest('.quantity-btn');
+                    const id = parseInt(button.dataset.id);
+                    const action = button.dataset.action;
+
+                    if (action === 'increase') {
+                        increaseQuantity(id);
+                    } else if (action === 'decrease') {
+                        decreaseQuantity(id);
+                    }
+                }
+            });
+
+            // Remove Item Buttons
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('remove-item') || e.target.closest('.remove-item')) {
+                    const button = e.target.classList.contains('remove-item') ? e.target : e.target.closest('.remove-item');
+                    const id = parseInt(button.dataset.id);
+                    removeFromCart(id);
+                }
+            });
+
+            // Prevent zoom on double tap
+            document.addEventListener('touchend', function(event) {
+                const now = Date.now();
+                if (now - (this.lastTouchEnd || 0) < 300) {
+                    event.preventDefault();
+                }
+                this.lastTouchEnd = now;
+            }, { passive: false });
+        }
+
+        // Navigate to Page
+        function navigateToPage(page) {
+            currentPage = page;
+
+            // Update sidebar navigation
+            sidebarNavItems.forEach(item => {
+                if (item.dataset.page === page) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+
+            // Update page display
+            pages.forEach(pageElement => {
+                if (pageElement.id === page) {
+                    pageElement.classList.add('active');
+                } else {
+                    pageElement.classList.remove('active');
+                }
+            });
+
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Toggle Cart
+        function toggleCart() {
+            cartOverlay.classList.toggle('active');
+            if (cartOverlay.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Add to Cart
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+
+            if (product) {
+                const existingItem = cart.find(item => item.id === productId);
+
+                if (existingItem) {
+                    existingItem.quantity++;
+                } else {
+                    cart.push({
+                        id: product.id,
+                        name: product.name,
+                        price: product.price,
+                        quantity: 1,
+                        image: product.image
+                    });
+                }
+
+                updateCart();
+                showToast(`${product.name} adicionado ao carrinho`);
+            }
+        }
+
+        // Update Cart
+        function updateCart() {
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCount.textContent = totalItems;
+
+            if (cart.length === 0) {
+                emptyCart.style.display = 'flex';
+                cartItems.innerHTML = '';
+                cartItems.appendChild(emptyCart);
+            } else {
+                emptyCart.style.display = 'none';
+                cartItems.innerHTML = '';
+
+                cart.forEach(item => {
+                    const cartItem = document.createElement('div');
+                    cartItem.className = 'cart-item';
+
+                    // Determina o conteúdo da imagem do carrinho
+                    const imageContent = item.image
+                        ? `<img src="${item.image}" alt="${item.name}">`
+                        : `<i class="fas fa-spray-can-sparkles"></i>`;
+
+                    cartItem.innerHTML = `
+                        <div class="cart-item-image">
+                            ${imageContent}
+                        </div>
+                        <div class="cart-item-details">
+                            <h3 class="cart-item-name">${item.name}</h3>
+                            <div class="cart-item-price">MZN ${item.price.toFixed(2)}</div>
+                            <div class="cart-item-quantity">
+                                <button class="quantity-btn" data-id="${item.id}" data-action="decrease">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <span class="item-quantity">${item.quantity}</span>
+                                <button class="quantity-btn" data-id="${item.id}" data-action="increase">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button class="remove-item" data-id="${item.id}">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    `;
+
+                    cartItems.appendChild(cartItem);
+                });
+
+                cartItems.appendChild(emptyCart);
+            }
+
+            const total = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+            totalPrice.textContent = `MZN ${total.toFixed(2)}`;
+        }
+
+        // Increase Quantity
+        function increaseQuantity(id) {
+            const item = cart.find(item => item.id === id);
+            if (item) {
+                item.quantity++;
+                updateCart();
+            }
+        }
+
+        // Decrease Quantity
+        function decreaseQuantity(id) {
+            const item = cart.find(item => item.id === id);
+            if (item) {
+                item.quantity--;
+                if (item.quantity === 0) {
+                    removeFromCart(id);
+                } else {
+                    updateCart();
+                }
+            }
+        }
+
+        // Remove From Cart
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            updateCart();
+        }
+
+        // Checkout via WhatsApp
+        function checkoutViaWhatsApp() {
+            if (cart.length === 0) {
+                showToast('Seu carrinho está vazio');
+                return;
+            }
+
+            loader.classList.add('active');
+
+            setTimeout(() => {
+                let message = "Olá, gostaria de encomendar os seguintes itens da Glory Fragrance:\n\n";
+
+                cart.forEach(item => {
+                    message += `${item.name} x ${item.quantity} - MZN ${(item.price * item.quantity).toFixed(2)}\n`;
+                });
+
+                const total = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+                message += `\nTotal: MZN ${total.toFixed(2)}`;
+
+                const encodedMessage = encodeURIComponent(message);
+                const whatsappUrl = `https://wa.me/258872007783?text=${encodedMessage}`;
+
+                loader.classList.remove('active');
+                window.open(whatsappUrl, '_blank');
+                toggleCart();
+            }, 800);
+        }
+
+        // Show Toast
+        function showToast(message) {
+            toastMessage.textContent = message;
+            toast.classList.add('show');
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2500);
+        }
+
+        // Handle Contact Form Submit
+        function handleContactFormSubmit(e) {
+            e.preventDefault();
+
+            loader.classList.add('active');
+
+            setTimeout(() => {
+                loader.classList.remove('active');
+                contactForm.reset();
+                showToast('Mensagem enviada com sucesso!');
+            }, 1000);
+        }
+
+        // Initialize App
+        document.addEventListener('DOMContentLoaded', initApp);
+    </script>
+</body>
+</html>
+
+
