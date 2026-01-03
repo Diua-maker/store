@@ -382,6 +382,111 @@
             }
         }
 
+        /* Search Bar Styles */
+        .search-container {
+            margin-bottom: 20px;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background-color: white;
+            border-radius: 14px;
+            padding: 4px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+        }
+
+        .dark .search-bar {
+            background-color: #16213e;
+        }
+
+        .search-bar:focus-within {
+            box-shadow: 0 4px 16px rgba(124, 58, 237, 0.25);
+        }
+
+        .search-input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: 14px 16px;
+            font-size: 16px;
+            color: var(--dark);
+            outline: none;
+        }
+
+        .dark .search-input {
+            color: #fff;
+        }
+
+        .search-input::placeholder {
+            color: var(--gray);
+        }
+
+        .search-btn {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            transition: var(--transition);
+            flex-shrink: 0;
+        }
+
+        .search-btn:active {
+            transform: scale(0.95);
+        }
+
+        .clear-search-btn {
+            background: none;
+            border: none;
+            color: var(--gray);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .clear-search-btn.visible {
+            display: flex;
+        }
+
+        .clear-search-btn:active {
+            color: var(--danger);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--gray);
+        }
+
+        .no-results i {
+            font-size: 3rem;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        .no-results p {
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+
+        .no-results span {
+            font-size: 0.85rem;
+        }
+
         /* Home Page Styles */
         .hero {
             position: relative;
@@ -1230,15 +1335,31 @@
 
             <!-- Products Page -->
             <div class="page" id="products">
-                <h2 class="category-title">Todos os Produtos</h2>
+                <div class="search-container">
+                    <div class="search-bar">
+                        <input type="text" class="search-input" id="searchInput" placeholder="Pesquisar produtos...">
+                        <button class="clear-search-btn" id="clearSearchBtn" aria-label="Limpar pesquisa">
+                            <i class="fas fa-times"></i>
+                        </button>
+                        <button class="search-btn" id="searchBtn" aria-label="Pesquisar">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                <h2 class="category-title" id="productsTitle">Todos os Produtos</h2>
                 <div class="products-grid" id="allProducts"></div>
+                <div class="no-results" id="noResults" style="display: none;">
+                    <i class="fas fa-search"></i>
+                    <p>Nenhum produto encontrado</p>
+                    <span>Tente pesquisar por outro termo</span>
+                </div>
             </div>
 
             <!-- About Page -->
             <div class="page" id="about">
                 <div class="about-section">
                     <h2>Sobre a Glory Fragrance</h2>
-                    <p>A Glory Fragrance é a distribuidora exclusiva de produtos INUKA premium em Moçambique. Oferecemos uma ampla gama de produtos de alta qualidade para saúde, beleza e bem-estar.</p>
+                    <p>A Glory Fragrance é a distribuidora exclusiva de produtos INUKA premium em Quelimane e Milange. Oferecemos uma ampla gama de produtos de alta qualidade para higiene, beleza e bem-estar.</p>
                     <p>A nossa missão é fornecer produtos excepcionais que atendam aos mais altos padrões de qualidade e eficácia.</p>
                 </div>
 
@@ -1260,7 +1381,7 @@
                         </div>
                         <div class="feature-content">
                             <h3 class="feature-title">Entrega Rápida</h3>
-                            <p class="feature-description">Serviços de entrega eficientes para todo Moçambique.</p>
+                            <p class="feature-description">Serviços de entrega eficientes para Quelimane e Milange.</p>
                         </div>
                     </div>
 
@@ -1288,7 +1409,7 @@
                             </div>
                             <div class="contact-text">
                                 <h3>Telefone</h3>
-                                <p>+258 872007783</p>
+                                <p>+258 866714378</p>
                             </div>
                         </div>
 
@@ -1298,7 +1419,7 @@
                             </div>
                             <div class="contact-text">
                                 <h3>WhatsApp</h3>
-                                <p>+258 872007783</p>
+                                <p>+258 866714378</p>
                             </div>
                         </div>
 
@@ -1308,7 +1429,7 @@
                             </div>
                             <div class="contact-text">
                                 <h3>Localização</h3>
-                                <p>Maputo, Moçambique</p>
+                                <p>Quelimane, Moçambique</p>
                             </div>
                         </div>
 
@@ -1317,8 +1438,8 @@
                                 <i class="fas fa-clock"></i>
                             </div>
                             <div class="contact-text">
-                                <h3>Horário</h3>
-                                <p>Seg - Sex: 8:00 - 18:00<br>Sáb: 9:00 - 16:00</p>
+                                <h3>Horário de atendimeto (online)</h3>
+                                <p>Todos dias: 6:00 - 22:00</p>
                             </div>
                         </div>
                     </div>
@@ -1421,7 +1542,7 @@
             { id: 3, name: "Body Splash", description: "INUKA Body Splash – Fragrância refrescante", price: 1200, featured: false, newArrival: true, image: "https://raw.githubusercontent.com/Diua-maker/glory/main/IMG-20251228-WA0003.jpg" },
             { id: 4, name: "Kit Variado INUKA", description: "Perfumes INUKA diversos, Roll-on perfumes e Creme corporal", price: 3500, featured: true, newArrival: false, image: "https://raw.githubusercontent.com/Diua-maker/glory/main/IMG-20251228-WA0004.jpg" },
             { id: 5, name: "1 Million", description: "Perfume + Luxury Lotion – 1 Million", price: 2500, featured: true, newArrival: false, image: "https://raw.githubusercontent.com/Diua-maker/glory/main/IMG-20251228-WA0005.jpg" },
-            { id: 6, name: "Luxury Lotion Variedades", description: "Luxury Lotion – King, 1 Million e outros aromas INUKA", price: 1500, featured: false, newArrival: true, image: "https://raw.githubusercontent.com/Diua-maker/glory/main/IMG-20251228-WA0006.jpg" },
+            { id: 6, name: "Luxury Lotion Variedades", description: "Luxury Lotion – King, 1 Million e outros aromas INUKA", price: 750, featured: false, newArrival: true, image: "https://raw.githubusercontent.com/Diua-maker/glory/main/IMG-20251228-WA0006.jpg" },
             { id: 7, name: "Amari Range", description: "Luxury Bath Salts, Hand & Body Lotion e Hand & Body Wash – Amari", price: 2800, featured: true, newArrival: false, image: "https://raw.githubusercontent.com/Diua-maker/glory/main/IMG-20251228-WA0007.jpg" },
             { id: 8, name: "Skin Care Set", description: "Age Defying Squalane Serum (50ml), Hydrating Facial Essence, Rose Quartz Roller + INUKA Pink Travel Bag", price: 4500, featured: true, newArrival: true, image: "https://raw.githubusercontent.com/Diua-maker/glory/main/IMG-20251228-WA0008.jpg" },
             { id: 9, name: "Luxury Lotion Linha Vermelha", description: "INUKA Luxury Lotion – Aromas variados linha vermelha", price: 1500, featured: false, newArrival: false, image: "https://raw.githubusercontent.com/Diua-maker/glory/main/IMG-20251228-WA0009.jpg" },
@@ -1431,11 +1552,11 @@
             { id: 13, name: "Faith", description: "Perfume + Luxury Lotion – Faith", price: 2500, featured: false, newArrival: true, image: "https://raw.githubusercontent.com/Diua-maker/glory/main/IMG-20251228-WA0013.jpg" },
             { id: 14, name: "Paradise For Her Lotion", description: "Luxury Lotion – Paradise For Her", price: 1500, featured: false, newArrival: false, image: "https://raw.githubusercontent.com/Diua-maker/glory/main/IMG-20251228-WA0014.jpg" },
             { id: 15, name: "Dare To Be Rare Lotion", description: "Luxury Lotion – Dare To Be Rare", price: 1500, featured: false, newArrival: true, image: "https://raw.githubusercontent.com/Diua-maker/glory/main/IMG-20251228-WA0015.jpg" },
-            { id: 16, name: "Moholo Hair Range", description: "Revitalizing Shampoo, Nourishing Conditioner, Deep Treatment e Hair Mask", price: 3200, featured: true, newArrival: true, image: "https://raw.githubusercontent.com/Diua-maker/glory/main/IMG-20251228-WA0016.jpg" },
-            { id: 17, name: "Roll-On Perfumes", description: "Innocent, 1 Million, Sweet Melody e Invictus", price: 1800, featured: false, newArrival: false, image: "https://raw.githubusercontent.com/Diua-maker/glory/main/IMG-20251228-WA0017.jpg" },
-            { id: 18, name: "Luxury Lotion Linha Castanha", description: "INUKA Luxury Lotion – Aromas variados linha castanha", price: 1500, featured: false, newArrival: false, image: "https://raw.githubusercontent.com/Diua-maker/glory/main/IMG-20251228-WA0018.jpg" },
+            { id: 16, name: "Moholo Hair Range", description: "Revitalizing Shampoo, Nourishing Conditioner, Deep Treatment e Hair Mask", price: 750, featured: true, newArrival: true, image: "https://raw.githubusercontent.com/Diua-maker/glory/main/IMG-20251228-WA0016.jpg" },
+            { id: 17, name: "Roll-On Perfumes", description: "Innocent, 1 Million, Sweet Melody e Invictus", price: 650, featured: false, newArrival: false, image: "https://raw.githubusercontent.com/Diua-maker/glory/main/IMG-20251228-WA0017.jpg" },
+            { id: 18, name: "Luxury Lotion Linha Castanha", description: "INUKA Luxury Lotion (100ml) – Aromas variados linha castanha", price: 750, featured: false, newArrival: false, image: "https://raw.githubusercontent.com/Diua-maker/glory/main/IMG-20251228-WA0018.jpg" },
             { id: 19, name: "Vision For Him", description: "Perfume + Luxury Lotion – Vision For Him", price: 2500, featured: true, newArrival: false, image: "https://raw.githubusercontent.com/Diua-maker/glory/main/IMG-20251228-WA0019.jpg" },
-            { id: 20, name: "Made For Her", description: "Perfume (30ml) – Made For Her", price: 1800, featured: false, newArrival: true, image: "https://raw.githubusercontent.com/Diua-maker/glory/main/IMG-20251228-WA0020.jpg" },
+            { id: 20, name: "Made For Her", description: "Perfume (30ml) – Made For Her", price: 1500, featured: false, newArrival: true, image: "https://raw.githubusercontent.com/Diua-maker/glory/main/IMG-20251228-WA0020.jpg" },
             { id: 21, name: "Daily Facial Cleanser", description: "INUKA Daily Facial Foaming Cleanser – Skin Care", price: 1200, featured: false, newArrival: true, image: "https://raw.githubusercontent.com/Diua-maker/glory/main/IMG-20251228-WA0021.jpg" },
             { id: 22, name: "Perfumes Femininos 30ml", description: "Vision For Her, Paradise For Her e La Vie Est Belle", price: 2200, featured: true, newArrival: false, image: "https://raw.githubusercontent.com/Diua-maker/glory/main/IMG-20251228-WA0022.jpg" },
             { id: 23, name: "Dare To Be Rare Set", description: "Perfume + Luxury Lotion + Roll-on – Dare To Be Rare", price: 2800, featured: true, newArrival: true, image: "https://raw.githubusercontent.com/Diua-maker/glory/main/IMG-20251228-WA0023.jpg" }
@@ -1448,6 +1569,7 @@
         // App State
         let cart = [];
         let currentPage = 'home';
+        let searchQuery = '';
 
         // DOM Elements
         const menuBtn = document.getElementById('menuBtn');
@@ -1469,6 +1591,11 @@
         const loader = document.getElementById('loader');
         const shopNowBtn = document.getElementById('shopNowBtn');
         const contactForm = document.getElementById('contactForm');
+        const searchInput = document.getElementById('searchInput');
+        const searchBtn = document.getElementById('searchBtn');
+        const clearSearchBtn = document.getElementById('clearSearchBtn');
+        const productsTitle = document.getElementById('productsTitle');
+        const noResults = document.getElementById('noResults');
 
         // Initialize the App
         function initApp() {
@@ -1514,7 +1641,33 @@
             const newArrivals = products.filter(product => product.newArrival);
             renderProductsList(newArrivals, document.getElementById('newArrivalsProducts'));
 
-            renderProductsList(products, document.getElementById('allProducts'));
+            renderAllProducts();
+        }
+
+        // Render All Products (with search filter)
+        function renderAllProducts() {
+            const allProductsContainer = document.getElementById('allProducts');
+            let filteredProducts = products;
+
+            if (searchQuery.trim() !== '') {
+                const query = searchQuery.toLowerCase().trim();
+                filteredProducts = products.filter(product =>
+                    product.name.toLowerCase().includes(query) ||
+                    product.description.toLowerCase().includes(query)
+                );
+                productsTitle.textContent = `Resultados para "${searchQuery}"`;
+            } else {
+                productsTitle.textContent = 'Todos os Produtos';
+            }
+
+            if (filteredProducts.length === 0) {
+                allProductsContainer.style.display = 'none';
+                noResults.style.display = 'block';
+            } else {
+                allProductsContainer.style.display = 'grid';
+                noResults.style.display = 'none';
+                renderProductsList(filteredProducts, allProductsContainer);
+            }
         }
 
         // Render Products List
@@ -1551,6 +1704,30 @@
             `;
 
             return productDiv;
+        }
+
+        // Search Products
+        function searchProducts() {
+            searchQuery = searchInput.value;
+            updateClearButton();
+            renderAllProducts();
+        }
+
+        // Clear Search
+        function clearSearch() {
+            searchInput.value = '';
+            searchQuery = '';
+            updateClearButton();
+            renderAllProducts();
+        }
+
+        // Update Clear Button visibility
+        function updateClearButton() {
+            if (searchInput.value.trim() !== '') {
+                clearSearchBtn.classList.add('visible');
+            } else {
+                clearSearchBtn.classList.remove('visible');
+            }
         }
 
         // Setup Event Listeners
@@ -1619,6 +1796,17 @@
                     removeFromCart(id);
                 }
             });
+
+            // Search functionality
+            searchBtn.addEventListener('click', searchProducts);
+            clearSearchBtn.addEventListener('click', clearSearch);
+            searchInput.addEventListener('keyup', function(e) {
+                updateClearButton();
+                if (e.key === 'Enter') {
+                    searchProducts();
+                }
+            });
+            searchInput.addEventListener('input', updateClearButton);
 
             // Prevent zoom on double tap
             document.addEventListener('touchend', function(event) {
@@ -1828,5 +2016,4 @@
     </script>
 </body>
 </html>
-
 
